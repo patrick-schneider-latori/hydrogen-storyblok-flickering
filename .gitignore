@@ -5,4 +5,8 @@ node_modules
 /public/build
 /.mf
 .env
+.vscode
 .shopify
+yarn.lock
+
+app/i18n
