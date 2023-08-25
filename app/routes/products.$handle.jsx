@@ -9,7 +9,7 @@ import {
   getSelectedProductOptions,
   CartForm,
 } from '@shopify/hydrogen';
-import {getVariantUrl} from '~/utils';
+import {getVariantUrl} from '~/lib/utils';
 
 export const meta = ({data}) => {
   return [{title: `Hydrogen | ${data.product.title}`}];
