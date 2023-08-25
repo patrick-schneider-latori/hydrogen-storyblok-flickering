@@ -16,6 +16,8 @@ import resetStyles from './styles/reset.css';
 import appStyles from './styles/app.css';
 import {Layout} from '~/components/Layout';
 import tailwindCss from './styles/tailwind.css';
+import {storyblokInit, apiPlugin} from '@storyblok/react';
+import {StoryBlokComponents} from './components/storyblok';
 
 // This is important to avoid re-fetching root queries on sub-navigations
 export const shouldRevalidate = ({formMethod, currentUrl, nextUrl}) => {
@@ -31,6 +33,16 @@ export const shouldRevalidate = ({formMethod, currentUrl, nextUrl}) => {
 
   return false;
 };
+
+storyblokInit({
+  accessToken: 'QcZ2WYyS7DFU75R4jmf2Hwtt',
+  cache: {
+    clear: 'auto',
+    type: 'memory',
+  },
+  use: [apiPlugin],
+  components: StoryBlokComponents,
+});
 
 export function links() {
   return [
