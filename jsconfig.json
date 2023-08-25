@@ -15,13 +15,20 @@
     "resolveJsonModule": true,
     "target": "ES2022",
     "moduleResolution": "node",
-    "baseUrl": ".",
+    "baseUrl": "./",
     "paths": {
       "~/*": [
         "app/*"
+      ],
+      "~cache/*": [
+        ".cache/*"
       ]
     }
   },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ],
   "include": [
     "./**/*.js",
     "./**/*.jsx"
