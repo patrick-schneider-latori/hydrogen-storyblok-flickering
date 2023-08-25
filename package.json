@@ -5,10 +5,13 @@
   "version": "0.0.0",
   "scripts": {
     "build": "shopify hydrogen build",
-    "dev": "shopify hydrogen dev",
-    "preview": "npm run build && shopify hydrogen preview",
+    "dev": "yarn actions && shopify hydrogen dev --port 5559",
+    "preview": "yarn build && shopify hydrogen preview",
     "lint": "eslint --no-error-on-unmatched-pattern --ext .js,.ts,.jsx,.tsx .",
-    "codegen": "shopify hydrogen codegen-unstable"
+    "codegen": "shopify hydrogen codegen-unstable",
+    "actions": "yarn fetch-storyblok-space-data && yarn fetch-i18n-shopify",
+    "fetch-i18n-shopify": "node ./actions/fetch-i18n-shopify",
+    "fetch-storyblok-space-data": "node ./actions/fetch-storyblok-space-data"
   },
   "prettier": "@shopify/prettier-config",
   "dependencies": {
