@@ -12,11 +12,6 @@ import {
   getStorefrontHeaders,
   createCookieSessionStorage,
 } from '@shopify/remix-oxygen';
-import {
-  getLocaleFromRequest,
-  isStoryBlokPreview,
-} from '~/lib/utils';
-import {createStoryblokClient} from '~/lib/storyblok';
 
 /**
  * Export a fetch handler in module format.
@@ -32,9 +27,8 @@ export default {
       }
 
       const waitUntil = (p) => executionContext.waitUntil(p);
-      const [cache, cacheStoryblok, session] = await Promise.all([
+      const [cache, session] = await Promise.all([
         caches.open('hydrogen'),
-        caches.open('storyblok'),
         HydrogenSession.init(request, [env.SESSION_SECRET]),
       ]);
 
@@ -64,28 +58,13 @@ export default {
       });
 
       /**
-       * Create Storyblok Storefront client.
-       * Analyzes the request object to see if in visual editor/preview mode
-       */
-      const storyblok = createStoryblokClient({
-        cacheStoryblok,
-        waitUntil,
-        preview: isStoryBlokPreview(request),
-        config: {
-          PRIVATE_STORYBLOK_CONTENT_PREVIEW_ACCESS_TOKEN:
-            env.PRIVATE_STORYBLOK_CONTENT_PREVIEW_ACCESS_TOKEN,
-          i18n: getLocaleFromRequest(request),
-        },
-      });
-
-      /**
        * Create a Remix request handler and pass
        * Hydrogen's Storefront client to the loader context.
        */
       const handleRequest = createRequestHandler({
         build: remixBuild,
         mode: process.env.NODE_ENV,
-        getLoadContext: () => ({session, storefront, storyblok, env, cart}),
+        getLoadContext: () => ({session, storefront, env, cart}),
       });
 
       const response = await handleRequest(request);
