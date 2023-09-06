@@ -7,7 +7,7 @@ import {fetchStoryOnRoute} from '~/lib/storyblok';
 export async function loader({request, params, context}) {
   try {
     const data = await fetchStoryOnRoute({request, params, context});
-    if (data.story) {
+    if (data?.story) {
       return json({
         story: data.story,
         isStoryBlokPreview: isStoryBlokPreview(request),
